@@ -1,12 +1,15 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
-const { token } = require('./config.json');
+const config = require('./config.json');
+const token = config.token
+const mongoose = require("mongoose");
+
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 client.commands = new Collection();
-const commandsPath = path.join(__dirname, 'commands');
+const commandsPath = path.join(__dirname, './src/commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
@@ -35,4 +38,18 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 });
 
+const connect = {
+	keepAlive: true,
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+	//useCreateIndex: true,
+  };
+
+mongoose.connect(config.mongodbUrl, connect
+).then(() => {
+	console.log('Connected to the database');
+}).catch((err) =>{
+	console.log(err);
+});
+	
 client.login(token);
