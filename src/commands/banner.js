@@ -1,4 +1,3 @@
-//pulls a users banner from their profile
 const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
