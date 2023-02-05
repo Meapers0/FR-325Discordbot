@@ -3,7 +3,6 @@ const path = require('node:path');
 const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const config = require('./config.json');
 const token = config.token;
-const mongoose = require("mongoose");
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds]});
 
@@ -31,19 +30,5 @@ for (const file of eventsFiles) {
         client.on(event.name, (...args) => event.execute(...args, commands));
     }
 }
-
-//mongoDB connection
-const connect = {
-	keepAlive: true,
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
-	//useCreateIndex: true,
-  };
-mongoose.connect(config.mongodbUrl, connect
-).then(() => {
-	console.log('Connected to the database');
-}).catch((err) =>{
-	console.log(err);
-});
 	
 client.login(token);
