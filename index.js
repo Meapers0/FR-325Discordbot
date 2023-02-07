@@ -4,13 +4,13 @@ const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const config = require('./config.json');
 const token = config.token;
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds]});
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 const commands = [];
 
 client.commands = new Collection();
 
-const commandsPath = path.join(__dirname, '/src/commands')
+const commandsPath = path.join(__dirname, '/src/commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
 	const filePath = path.join(commandsPath, file);
@@ -25,10 +25,11 @@ for (const file of eventsFiles) {
 	const filePath = path.join(eventsPath, file);
 	const event = require(filePath);
 	if (event.once) {
-        client.once(event.name, (...args) => event.execute(...args, commands))
-    } else {
+        client.once(event.name, (...args) => event.execute(...args, commands));
+    }
+	else {
         client.on(event.name, (...args) => event.execute(...args, commands));
     }
 }
-	
+
 client.login(token);
