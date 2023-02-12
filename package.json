@@ -4,7 +4,8 @@
   "description": "Making a discord bot to assist with javascript knowledge",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "nodemon ./index.js"
   },
   "repository": {
     "type": "git",
@@ -18,12 +19,13 @@
   },
   "homepage": "https://github.com/Meapers0/Practice-Discord-Bot#readme",
   "devDependencies": {
-    "eslint": "^8.31.0"
+    "eslint": "^8.33.0"
   },
   "dependencies": {
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
     "mongoose": "^6.9.0",
-    "node": "^19.3.0"
+    "node": "^19.3.0",
+    "nodemon": "^2.0.20"
   }
 }
