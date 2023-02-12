@@ -2,15 +2,14 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { Client, Collection, GatewayIntentBits, Partials } = require('discord.js');
-const { Guilds, GuildMembers, GuildMessages } = GatewayIntentBits;
-const { User, Message, GuildMember, ThreadMember } = Partials;
+const { Guilds, GuildMembers, GuildMessages, GuildMessageReactions } = GatewayIntentBits;
+const { User, Message, GuildMember, ThreadMember, Reaction, Channel } = Partials;
 const config = require('./config.json');
 const token = config.token;
-const Discord = require('discord.js');
 
 const client = new Client({
-	intents: [Guilds, GuildMembers, GuildMessages],
-	partials: [User, Message, GuildMember, ThreadMember] });
+	intents: [Guilds, GuildMembers, GuildMessages, GuildMessageReactions ],
+	partials: [User, Message, GuildMember, ThreadMember, Reaction, Channel] });
 const commands = [];
 client.commands = new Collection();
 
@@ -31,10 +30,10 @@ for (const file of eventsFiles) {
 	const filePath = path.join(eventsPath, file);
 	const event = require(filePath);
 	if (event.once) {
-        client.once(event.name, (...args) => event.execute(...args, commands, Discord));
+        client.once(event.name, (...args) => event.execute(...args, commands));
     }
 	else {
-        client.on(event.name, (...args) => event.execute(...args, commands, Discord));
+        client.on(event.name, (...args) => event.execute(...args, commands));
     }
 }
 

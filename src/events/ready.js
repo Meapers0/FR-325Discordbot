@@ -6,9 +6,7 @@ module.exports = {
     once: true,
     execute(client, commands) {
         console.log(`Ready! Logged in as ${client.user.tag}`);
-
         const rest = new REST({ version: '10' }).setToken(token);
-
         (async () => {
             try {
                 console.log(`Started refreshing ${commands.length} application (/) commands.`);
