@@ -96,7 +96,104 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 	await interaction.update(`${interaction.member}'s Role has been updated`);
 });
+<<<<<<< Updated upstream
 */
+=======
+
+
+client.on(Events.InteractionCreate, async interaction => {
+	if (!interaction.isChatInputCommand()) return;
+
+	if (interaction.commandName === 'createchannel') {
+		console.log(interaction.options.data[0].value);
+		if (interaction.options.data[1] === undefined) {
+		interaction.guild.channels.create({
+			name: interaction.options.data[0].value,
+			type: ChannelType.GuildText,
+		});
+	}
+
+	else {
+		const temp = await interaction.guild.channels.create({
+				name: interaction.options.data[1].value,
+				type: ChannelType.GuildCategory,
+			});
+		await interaction.guild.channels.create({
+			name: interaction.options.data[0].value,
+			type: ChannelType.GuildText,
+			parent: temp,
+		});
+		}
+		interaction.reply('Channel has been created.');
+	}
+});
+
+
+client.on(Events.InteractionCreate, interaction => {
+	if (!interaction.isChatInputCommand()) return;
+
+	if (interaction.commandName === 'createcategory') {
+		console.log(interaction.options.data[0].value);
+		interaction.guild.channels.create({
+			name: interaction.options.data[0].value,
+			type: ChannelType.GuildCategory,
+		});
+		interaction.reply('Category has been created.');
+	}
+	});
+
+client.on(Events.InteractionCreate, interaction => {
+		if (!interaction.isChatInputCommand()) return;
+
+		if (interaction.commandName === 'help') {
+			const embed = new EmbedBuilder()
+			.addFields(commandNames);
+
+			interaction.reply({ content: 'Help!', ephemeral: true, embeds: [embed] });
+		}
+		});
+
+client.on(Events.InteractionCreate, async interaction => {
+		if (!interaction.isChatInputCommand()) return;
+
+		if (interaction.commandName === 'initclass') {
+			if (!interaction.options.data[1].value) {
+			interaction.guild.channels.create({
+				name: `CSC ${interaction.options.data[0].value}`,
+				type: ChannelType.GuildCategory,
+			});
+			interaction.reply('Category has been created');
+		}
+		else {
+			const temp = await interaction.guild.channels.create({
+				name: `CSC ${interaction.options.data[0].value}`,
+				type: ChannelType.GuildCategory,
+			});
+			await interaction.guild.channels.create({
+				name: `announcements-${interaction.options.data[0].value}`,
+				type: ChannelType.GuildText,
+				parent: temp,
+			});
+			await interaction.guild.channels.create({
+				name: `zoom-meeting-info-${interaction.options.data[0].value}`,
+				type: ChannelType.GuildText,
+				parent: temp,
+			});
+			await interaction.guild.channels.create({
+				name: 'introduce-yourself',
+				type: ChannelType.GuildText,
+				parent: temp,
+			});
+			await interaction.guild.channels.create({
+				name: 'chat',
+				type: ChannelType.GuildText,
+				parent: temp,
+			});
+			interaction.reply('Category and channels have been created');
+		}
+		}
+		});
+>>>>>>> Stashed changes
 
 
 client.login(token);
