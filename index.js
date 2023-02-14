@@ -24,8 +24,7 @@ for (const file of commandFiles) {
 	const command = require(filePath);
 	commands.push(command.data.toJSON());
 	client.commands.set(command.data.name, command);
-	//commandDesc[i] = command.data.description;
-	commandNames[i] = `{name: ${command.data.name}, value: ${command.data.description}},`;
+	commandNames[i] = { name: `${command.data.name}`, value: `${command.data.description}` };
 	i++;
 }
 console.log(commandNames);
@@ -93,7 +92,7 @@ client.on(Events.InteractionCreate, async interaction => {
 });
 
 
-client.on(Events.InteractionCreate, interaction => {
+client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
 
 	if (interaction.commandName === 'createchannel') {
@@ -103,8 +102,20 @@ client.on(Events.InteractionCreate, interaction => {
 			name: interaction.options.data[0].value,
 			type: ChannelType.GuildText,
 		});
-		interaction.reply('Channel has been created.');
 	}
+
+	else {
+		const temp = await interaction.guild.channels.create({
+				name: interaction.options.data[1].value,
+				type: ChannelType.GuildCategory,
+			});
+		await interaction.guild.channels.create({
+			name: interaction.options.data[0].value,
+			type: ChannelType.GuildText,
+			parent: temp,
+		});
+		}
+		interaction.reply('Channel has been created.');
 	}
 });
 
@@ -122,16 +133,56 @@ client.on(Events.InteractionCreate, interaction => {
 	}
 	});
 
-	client.on(Events.InteractionCreate, interaction => {
+client.on(Events.InteractionCreate, interaction => {
 		if (!interaction.isChatInputCommand()) return;
-
-		const fields = [{ name: 'field 1', value: 'value2' }, { name: 'field 2', value: 'value3' }];
 
 		if (interaction.commandName === 'help') {
 			const embed = new EmbedBuilder()
-			.addFields(fields);
+			.addFields(commandNames);
 
 			interaction.reply({ content: 'Help!', ephemeral: true, embeds: [embed] });
+		}
+		});
+
+client.on(Events.InteractionCreate, async interaction => {
+		if (!interaction.isChatInputCommand()) return;
+
+		if (interaction.commandName === 'initclass') {
+			if (!interaction.options.data[1].value) {
+			interaction.guild.channels.create({
+				name: `CSC ${interaction.options.data[0].value}`,
+				type: ChannelType.GuildCategory,
+			});
+		}
+		else {
+			const temp = await interaction.guild.channels.create({
+				name: `CSC ${interaction.options.data[0].value}`,
+				type: ChannelType.GuildCategory,
+			});
+			await interaction.guild.channels.create({
+				name: `announcements-${interaction.options.data[0].value}`,
+				type: ChannelType.GuildText,
+				parent: temp,
+			});
+			await interaction.guild.channels.create({
+				name: `zoom-meeting-info-${interaction.options.data[0].value}`,
+				type: ChannelType.GuildText,
+				parent: temp,
+			});
+			await interaction.guild.channels.create({
+				name: 'introduce-yourself',
+				type: ChannelType.GuildText,
+				parent: temp,
+			});
+			await interaction.guild.channels.create({
+				name: 'chat',
+				type: ChannelType.GuildText,
+				parent: temp,
+			});
+		}
+
+		interaction.reply('Channel has been created');
+
 		}
 		});
 
