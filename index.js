@@ -1,7 +1,7 @@
 // Dependancies
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, GatewayIntentBits, Partials } = require('discord.js');
+const { Client, Collection, GatewayIntentBits, Partials, Events, ActionRowBuilder, StringSelectMenuBuilder, EmbedBuilder, ChannelType } = require('discord.js');
 const { Guilds, GuildMembers, GuildMessages, GuildMessageReactions } = GatewayIntentBits;
 const { User, Message, GuildMember, ThreadMember, Reaction, Channel } = Partials;
 const config = require('./config.json');
@@ -11,6 +11,9 @@ const client = new Client({
 	intents: [Guilds, GuildMembers, GuildMessages, GuildMessageReactions ],
 	partials: [User, Message, GuildMember, ThreadMember, Reaction, Channel] });
 const commands = [];
+let commandNames = [];
+let commandDesc = [];
+let i = 0;
 client.commands = new Collection();
 
 // Finds all commands
@@ -21,8 +24,12 @@ for (const file of commandFiles) {
 	const command = require(filePath);
 	commands.push(command.data.toJSON());
 	client.commands.set(command.data.name, command);
+	//commandDesc[i] = command.data.description;
+	commandNames[i] = `{name: ${command.data.name}, value: ${command.data.description}},`;
+	i++;
 }
-
+console.log(commandNames);
+console.log(commandDesc);
 // Finds all events
 const eventsPath = path.join(__dirname, '/src/events');
 const eventsFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
@@ -37,7 +44,6 @@ for (const file of eventsFiles) {
 	}
 }
 
-/*
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
 
@@ -53,17 +59,12 @@ client.on(Events.InteractionCreate, async interaction => {
 						{
 							label: 'I give you a role',
 							description: 'This is a description',
-							value: '1071638283894935672',
+							value: '1063151758840434758',
 						},
 						{
 							label: 'I also give you a role',
 							description: 'This is the 6th choice',
-							value: '1071638312374255667',
-						},
-						{
-							label: 'This role here',
-							description: 'Adds a role',
-							value: '1071638382536556585',
+							value: '1073028224898048070',
 						},
 					),
 			);
@@ -80,12 +81,6 @@ client.on(Events.InteractionCreate, async interaction => {
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isStringSelectMenu()) return;
 
-	let roles = interaction.member.roles;
-
-	for (const roleId of interaction.member.roles) {
-		roles = roleId.id;
-	}
-
 	for (const id of interaction.values) {
 		console.log(id);
 		console.log(interaction.member.roles[1]);
@@ -96,7 +91,49 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 	await interaction.update(`${interaction.member}'s Role has been updated`);
 });
-*/
+
+
+client.on(Events.InteractionCreate, interaction => {
+	if (!interaction.isChatInputCommand()) return;
+
+	if (interaction.commandName === 'createchannel') {
+		console.log(interaction.options.data[0].value);
+		if (interaction.options.data[1] === undefined) {
+		interaction.guild.channels.create({
+			name: interaction.options.data[0].value,
+			type: ChannelType.GuildText,
+		});
+		interaction.reply('Channel has been created.');
+	}
+	}
+});
+
+
+client.on(Events.InteractionCreate, interaction => {
+	if (!interaction.isChatInputCommand()) return;
+
+	if (interaction.commandName === 'createcategory') {
+		console.log(interaction.options.data[0].value);
+		interaction.guild.channels.create({
+			name: interaction.options.data[0].value,
+			type: ChannelType.GuildCategory,
+		});
+		interaction.reply('Category has been created.');
+	}
+	});
+
+	client.on(Events.InteractionCreate, interaction => {
+		if (!interaction.isChatInputCommand()) return;
+
+		const fields = [{ name: 'field 1', value: 'value2' }, { name: 'field 2', value: 'value3' }];
+
+		if (interaction.commandName === 'help') {
+			const embed = new EmbedBuilder()
+			.addFields(fields);
+
+			interaction.reply({ content: 'Help!', ephemeral: true, embeds: [embed] });
+		}
+		});
 
 
 client.login(token);
