@@ -15,7 +15,6 @@ client.commands = new Collection();
 
 // Finds all commands
 const commandsPath = path.join(__dirname, '/src/commands');
-const commandsPath = path.join(__dirname, '/src/commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
 	const filePath = path.join(commandsPath, file);
@@ -35,12 +34,10 @@ for (const file of eventsFiles) {
     }
 	else {
         client.once(event.name, (...args) => event.execute(...args, commands));
-    }
-	else {
-        client.on(event.name, (...args) => event.execute(...args, commands));
-    }
+	}
 }
 
+/*
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
 
@@ -99,6 +96,7 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 	await interaction.update(`${interaction.member}'s Role has been updated`);
 });
+*/
 
 
 client.login(token);
