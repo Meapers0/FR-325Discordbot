@@ -2,7 +2,7 @@ const { REST, Routes } = require('discord.js');
 const { clientId, guildId, token } = require('../../config.json');
 
 module.exports = {
-    name: "ready",
+    name: 'ready',
     once: true,
     execute(client, commands) {
         console.log(`Ready! Logged in as ${client.user.tag}`);
