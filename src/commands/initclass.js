@@ -2,18 +2,18 @@ const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('createchannel')
-		.setDescription('Creates a channel. Param(name, category)')
+		.setName('initclass')
+		.setDescription('For creating a new class template')
         .addStringOption(option =>
             option
-            .setName('name')
-            .setDescription('the new channel to create')
+            .setName('role-name')
+            .setDescription('the new role to create (class number)')
             .setRequired(true),
             )
-        .addStringOption(option =>
+        .addBooleanOption(option =>
             option
             .setName('category')
-            .setDescription('the new category to create')
+            .setDescription('T/F if a category with channels should be created')
             .setRequired(true),
             ),
 	};
