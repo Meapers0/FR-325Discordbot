@@ -15,5 +15,20 @@ module.exports = {
             .setName('color')
             .setDescription('Enter a color or leave blank for random')
             .setRequired(false)),
-        // option for student or other here (to setup default permissions)
-	};
+    async execute(interaction) {
+        const randIntR = Math.floor(Math.random() * 256) + 30;
+        const randIntG = Math.floor(Math.random() * 256) + 30;
+        const randIntB = Math.floor(Math.random() * 256) + 30;
+
+        console.log(randIntR);
+        console.log(randIntB);
+        console.log(randIntG);
+        const randColor = [randIntR, randIntB, randIntG];
+        interaction.guild.roles.create({
+            name: interaction.options.data[0].value,
+            color: randColor,
+            reason: 'Role created via addrole command',
+        });
+        interaction.reply('Role has been created.');
+    },
+};
