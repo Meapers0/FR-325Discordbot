@@ -10,7 +10,7 @@ module.exports = {
 				.setCustomId('select')
 				.setPlaceholder('Nothing selected')
 				.setMinValues(1)
-				.setMaxValues(2)
+				.setMaxValues(3)
 				.addOptions(
 					{
 						label: 'I give you a role',
@@ -21,6 +21,11 @@ module.exports = {
 						label: 'I also give you a role',
 						description: 'This is the 6th choice',
 						value: '1071638312374255667',
+					},
+					{
+						label: 'This role here',
+						description: 'Adds a role',
+						value: '1071638382536556585',
 					},
 				),
 			);
