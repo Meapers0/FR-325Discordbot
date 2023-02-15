@@ -11,8 +11,8 @@ const client = new Client({
 	intents: [Guilds, GuildMembers, GuildMessages, GuildMessageReactions ],
 	partials: [User, Message, GuildMember, ThreadMember, Reaction, Channel] });
 const commands = [];
-let commandNames = [];
-let commandDesc = [];
+const commandNames = [];
+const commandDesc = [];
 let i = 0;
 client.commands = new Collection();
 
@@ -73,7 +73,7 @@ client.on(Events.InteractionCreate, async interaction => {
 						.setTitle('Works with embeds')
 						.setDescription('Add a role for the classes you are in!');
 
-		await interaction.reply({ content: 'Pong!', ephemeral: false, embeds: [embed], components: [row] });
+		await interaction.reply({ content: 'Role Select Menu', ephemeral: false, embeds: [embed], components: [row] });
 	}
 });
 
@@ -146,7 +146,7 @@ client.on(Events.InteractionCreate, interaction => {
 
 client.on(Events.InteractionCreate, async interaction => {
 		if (!interaction.isChatInputCommand()) return;
-
+		console.log(interaction.member.id);
 		if (interaction.commandName === 'initclass') {
 			if (!interaction.options.data[1].value) {
 			interaction.guild.channels.create({
@@ -186,5 +186,24 @@ client.on(Events.InteractionCreate, async interaction => {
 		}
 		});
 
+client.on(Events.InteractionCreate, interaction => {
+			if (!interaction.isChatInputCommand()) return;
+			const randIntR = Math.floor(Math.random() * 256) + 30;
+			const randIntG = Math.floor(Math.random() * 256) + 30;
+			const randIntB = Math.floor(Math.random() * 256) + 30;
+
+			console.log(randIntR);
+			console.log(randIntB);
+			console.log(randIntG);
+			const randColor = [randIntR, randIntB, randIntG];
+			if (interaction.commandName === 'addrole') {
+				interaction.guild.roles.create({
+					name: interaction.options.data[0].value,
+					color: randColor,
+					reason: 'Role created via addrole command',
+				});
+				interaction.reply('Role has been created.');
+			}
+			});
 
 client.login(token);

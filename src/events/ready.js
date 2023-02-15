@@ -1,5 +1,8 @@
 const { REST, Routes } = require('discord.js');
 const { clientId, guildId, token } = require('../../config.json');
+const { commandNames } = require('discord.js')
+
+console.log(commandNames);
 
 module.exports = {
     name: 'ready',
