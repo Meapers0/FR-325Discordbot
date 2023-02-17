@@ -9,7 +9,8 @@ const token = config.token;
 
 const client = new Client({
 	intents: [Guilds, GuildMembers, GuildMessages, GuildMessageReactions ],
-	partials: [User, Message, GuildMember, ThreadMember, Reaction, Channel] });
+	partials: [User, Message, GuildMember, ThreadMember, Reaction, Channel],
+});
 
 const commands = [];
 client.commandData = [];
