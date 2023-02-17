@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -14,7 +14,8 @@ module.exports = {
             option
             .setName('color')
             .setDescription('Enter a color or leave blank for random')
-            .setRequired(false)),
+            .setRequired(false))
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     async execute(interaction) {
         const randIntR = Math.floor(Math.random() * 256) + 30;
         const randIntG = Math.floor(Math.random() * 256) + 30;

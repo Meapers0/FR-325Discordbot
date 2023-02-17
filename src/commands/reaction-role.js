@@ -1,10 +1,10 @@
-const { SlashCommandBuilder } = require('discord.js');
-const { EmbedBuilder } = require('discord.js');
+const { SlashCommandBuilder, EmbedBuilder, PermissionFlagsBits } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('reaction-message')
-        .setDescription('Sets up the reaction role message'),
+        .setDescription('Sets up the reaction role message')
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     async execute(message) {
 
         // const students379 = message.guild.roles.cache.find(role => role.name === '379 Students');

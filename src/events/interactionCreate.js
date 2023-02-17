@@ -2,7 +2,7 @@ module.exports = {
     name: 'interactionCreate',
     once: false,
     async execute(interaction) {
-        if (!interaction.isCommand()) {
+        if (!interaction.isCommand() || !interaction.isStringSelectMenu() || !interaction.isContextMenu()) {
             console.log(`Command Interaction ran. "${interaction.commandName}"`);
         }
         const command = interaction.client.commands.get(interaction.commandName);
@@ -16,13 +16,7 @@ module.exports = {
             console.error(`Error executing ${interaction.commandName}`);
             console.error(error);
         }
-        if (!interaction.isStringSelectMenu()) {
-            return;
-        }
         for (const id of interaction.values) {
-            console.log(id);
-            console.log(interaction.member.roles[1]);
-
             await interaction.member.roles.add(id);
         }
         await interaction.update(`${interaction.member}'s Role has been updated`);
