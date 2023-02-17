@@ -16,7 +16,6 @@ module.exports = {
             console.error(`Error executing ${interaction.commandName}`);
             console.error(error);
         }
-        /*
         if (!interaction.isStringSelectMenu()) {
             return;
         }
@@ -27,7 +26,5 @@ module.exports = {
             await interaction.member.roles.add(id);
         }
         await interaction.update(`${interaction.member}'s Role has been updated`);
-        },
-        */
     },
 };

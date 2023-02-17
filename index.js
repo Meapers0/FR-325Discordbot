@@ -40,7 +40,7 @@ for (const file of eventsFiles) {
         client.once(event.name, (...args) => event.execute(...args, commands));
     }
 	else {
-        client.once(event.name, (...args) => event.execute(...args, commands));
+        client.on(event.name, (...args) => event.execute(...args, commands));
 	}
 }
 
