@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, ChannelType } = require('discord.js');
+const { SlashCommandBuilder, ChannelType, PermissionFlagsBits } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -9,7 +9,8 @@ module.exports = {
             .setName('name')
             .setDescription('the new category to create')
             .setRequired(true),
-            ),
+            )
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     async execute(interaction) {
         console.log(interaction.options.data[0].value);
         interaction.guild.channels.create({

@@ -9,7 +9,8 @@ const token = config.token;
 
 const client = new Client({
 	intents: [Guilds, GuildMembers, GuildMessages, GuildMessageReactions ],
-	partials: [User, Message, GuildMember, ThreadMember, Reaction, Channel] });
+	partials: [User, Message, GuildMember, ThreadMember, Reaction, Channel],
+});
 
 const commands = [];
 client.commandData = [];
@@ -39,7 +40,7 @@ for (const file of eventsFiles) {
         client.once(event.name, (...args) => event.execute(...args, commands));
     }
 	else {
-        client.once(event.name, (...args) => event.execute(...args, commands));
+        client.on(event.name, (...args) => event.execute(...args, commands));
 	}
 }
 
