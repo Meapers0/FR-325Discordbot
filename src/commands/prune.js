@@ -13,7 +13,7 @@ module.exports = {
         }
         await interaction.channel.bulkDelete(amount, true).catch(error => {
             console.error(error);
-            interaction.reply({ content: 'There was an error trying to prune messages int his channel!', empheral: true });
+            interaction.reply({ content: 'There was an error trying to prune messages in this channel!', empheral: true });
         });
         return interaction.reply({ content: `Successuflly pruned \`${amount}\` messages.`, empheral: true });
     },
