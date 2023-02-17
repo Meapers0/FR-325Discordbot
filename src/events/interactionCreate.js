@@ -9,12 +9,14 @@ module.exports = {
         if (!command) {
             console.error(`No command matching ${interaction.commandName} was found.`);
         }
-        try {
-            await command.execute(interaction);
-        }
-        catch (error) {
-            console.error(`Error executing ${interaction.commandName}`);
-            console.error(error);
+        if (!interaction.isStringSelectMenu()) {
+            try {
+                await command.execute(interaction);
+            }
+            catch (error) {
+                console.error(`Error executing ${interaction.commandName}`);
+                console.error(error);
+            }
         }
         for (const id of interaction.values) {
             await interaction.member.roles.add(id);
