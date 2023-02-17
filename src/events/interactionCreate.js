@@ -20,12 +20,19 @@ module.exports = {
             return;
         }
         else {
+            console.log('We made it');
+            const component = interaction.component;
+            const removed = component.options.filter((option) => {
+                return !interaction.values.includes(option.values);
+            });
+
+            for (const id of removed) {
+                await interaction.member.roles.remove(id);
+            }
+
             for (const id of interaction.values) {
                 console.log(id);
                 console.log(interaction.member.roles[1]);
-                if (id === interaction.member.roles[0]) {
-                    await interaction.member.roles.remove(id);
-                }
                 await interaction.member.roles.add(id);
             }
             await interaction.update(`${interaction.member}'s Role has been updated`);

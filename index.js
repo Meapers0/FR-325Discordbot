@@ -1,7 +1,7 @@
 // Dependancies
 const fs = require('node:fs');
 const path = require('node:path');
-const { Client, Collection, GatewayIntentBits, Partials } = require('discord.js');
+const { Client, Collection, GatewayIntentBits, Partials, Events } = require('discord.js');
 const { Guilds, GuildMembers, GuildMessages, GuildMessageReactions } = GatewayIntentBits;
 const { User, Message, GuildMember, ThreadMember, Reaction, Channel } = Partials;
 const config = require('./config.json');
@@ -42,5 +42,29 @@ for (const file of eventsFiles) {
         client.once(event.name, (...args) => event.execute(...args, commands));
 	}
 }
+
+client.on(Events.InteractionCreate, async interaction => {
+	if (!interaction.isStringSelectMenu()) return;
+	const component = interaction.component;
+	const removed = component.options.filter((option) => {
+		console.log(!interaction.values.includes(option.values));
+	});
+
+	for (const id of removed) {
+		console.log(id);
+		await interaction.member.roles.remove(id);
+	}
+
+	for (const id of interaction.values) {
+		console.log(id);
+		console.log(interaction.member.roles[1]);
+		await interaction.member.roles.add(id);
+	}
+	await interaction.update(`${interaction.member}'s Role has been updated`);
+
+});
+
+
+
 
 client.login(token);

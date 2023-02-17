@@ -13,7 +13,7 @@ module.exports = {
             .setName('categoryname')
             .setDescription('the new category to create')
             .setRequired(true),
-            ),
+        ),
     async execute(interaction) {
         // console.log(interaction.options.data[0].value);
         if (interaction.options.data[1] === undefined) {

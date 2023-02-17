@@ -5,29 +5,27 @@ module.exports = {
 		.setName('roles')
 		.setDescription('Brings up role select menu'),
 	async execute(interaction) {
+		const tempRole = [];
+		let i = 0;
+		await interaction.guild.roles.cache.forEach(element => {
+			if (element.name !== '@everyone') {
+			tempRole[i] =
+			{ 	label: `${element.name}`,
+				description: `This applies the ${element.name} role`,
+				value: `${element.id}` };
+				i++;
+			}
+		},
+		);
+		console.log(tempRole);
+
 		const row = new ActionRowBuilder()
 			.addComponents(new StringSelectMenuBuilder()
 				.setCustomId('select')
 				.setPlaceholder('Nothing selected')
 				.setMinValues(1)
-				.setMaxValues(3)
-				.addOptions(
-					{
-						label: 'I give you a role',
-						description: 'This is a description',
-						value: '1071638283894935672',
-					},
-					{
-						label: 'I also give you a role',
-						description: 'This is the 6th choice',
-						value: '1071638312374255667',
-					},
-					{
-						label: 'This role here',
-						description: 'Adds a role',
-						value: '1071638382536556585',
-					},
-				),
+				.setMaxValues(1)
+				.addOptions(tempRole),
 			);
 		const embed = new EmbedBuilder()
 			.setColor(0x0099FF)
