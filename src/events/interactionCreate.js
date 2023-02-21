@@ -18,9 +18,11 @@ module.exports = {
                 console.error(error);
             }
         }
-        for (const id of interaction.values) {
-            await interaction.member.roles.add(id);
-        }
+        if (interaction.isStringSelectMenu()) {
+            for (const id of interaction.values) {
+                await interaction.member.roles.add(id);
+            }
         await interaction.update(`${interaction.member}'s Role has been updated`);
+        }
     },
 };
