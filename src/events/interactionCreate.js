@@ -20,10 +20,27 @@ module.exports = {
             }
         }
         if (interaction.isStringSelectMenu()) {
+
+            const component = interaction.component;
+
+            const removed = component.options.filter((option) => {
+                return !interaction.values.includes(option.value);
+            });
+
+            for (const id of removed) {
+                await interaction.member.roles.remove(id.value);
+            }
+
+
             for (const id of interaction.values) {
                 await interaction.member.roles.add(id);
             }
-            await interaction.update(`${interaction.member}'s Role has been updated`);
+
+            // for (const id of interaction.guild.members.cache.entries()) {
+            //     console.log(id[1].roles);
+            // }
+
+            await interaction.update({ content: 'Your role has been updated', ephemeral: true });
         }
     },
 };
