@@ -14,7 +14,6 @@ module.exports = {
             if (id[1].name.toLowerCase().includes('student')) {
             const roleNumArr = id[1].name.split(' ');
             map1.set(roleNumArr[1], { id: id[1].id, position: id[1].position });
-            console.log(roleNumArr[1]);
             }
         }
         map1 = [...map1.entries()].sort();

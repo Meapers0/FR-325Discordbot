@@ -36,8 +36,18 @@ module.exports = {
             .setRequired(false)))
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     async execute(interaction) {
-
         let color = ' ';
+        let flag = true;
+
+        const studentRoleName = 'Student ' + interaction.options.data[0].options[0].value;
+        const roleName = interaction.options.data[0].options[0].value;
+        const roles = await interaction.guild.roles.fetch();
+
+        for (const elem of roles) {
+            if (elem[1].name === interaction.options.data[0].options[0].value || elem[1].name === studentRoleName) {
+                flag = false;
+            }
+        }
 
         if (!interaction.options.data[0].options[1]) {
         color = 'Random';
@@ -46,21 +56,25 @@ module.exports = {
         color = interaction.options.data[0].options[1].value;
         }
 
-        if (interaction.options.data[0].name === 'student') {
+        if (interaction.options.data[0].name === 'student' && flag) {
         interaction.guild.roles.create({
-                name: 'Student ' + interaction.options.data[0].options[0].value,
+                name: studentRoleName,
                 color: color,
                 reason: 'Role created via addrole command',
             });
+        }
+        else if (interaction.options.data[0].name === 'default' && flag) {
+            interaction.guild.roles.create({
+                name: roleName,
+                color: color,
+                reason: 'Role created via addrole command',
+            });
+        }
+        if (flag) {
+            interaction.reply('Role has been created.');
         }
         else {
-            interaction.guild.roles.create({
-                name: interaction.options.data[0].options[0].value,
-                color: color,
-                reason: 'Role created via addrole command',
-            });
+            interaction.reply('Role name is already in use');
         }
-
-        interaction.reply('Role has been created.');
     },
 };
