@@ -38,7 +38,19 @@ module.exports = {
     async execute(interaction) {
 
         let color = ' ';
+        let flag = true;
 
+        const studentRoleName = interaction.options.data[0].options[0].value + ' Student';
+        //const veteranRoleName = interaction.options.data[0].options[0].value + ' Veteran';
+        const roleName = interaction.options.data[0].options[0].value;
+        const roles = await interaction.guild.roles.fetch();
+
+        for (const elem of roles) {
+            if (elem[1].name === interaction.options.data[0].options[0].value || elem[1].name === studentRoleName) {
+                flag = false;
+            }
+        }
+        console.log(flag);
         if (!interaction.options.data[0].options[1]) {
         color = 'Random';
         }
@@ -48,10 +60,15 @@ module.exports = {
 
         if (interaction.options.data[0].name === 'student') {
         interaction.guild.roles.create({
-                name: 'Student ' + interaction.options.data[0].options[0].value,
+                name: studentRoleName,
                 color: color,
-                reason: 'Role created via addrole command',
+                reason: 'Student role created via addrole command',
             });
+        // interaction.guild.roles.create({
+        //     name: veteranRoleName,
+        //     color: color,
+        //     reason: 'Veteran created via addrole command',
+        // });
         }
         else {
             interaction.guild.roles.create({
