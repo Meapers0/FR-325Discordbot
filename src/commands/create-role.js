@@ -36,7 +36,6 @@ module.exports = {
             .setRequired(false)))
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     async execute(interaction) {
-
         let color = ' ';
         let flag = true;
 
@@ -58,7 +57,7 @@ module.exports = {
         color = interaction.options.data[0].options[1].value;
         }
 
-        if (interaction.options.data[0].name === 'student') {
+        if (interaction.options.data[0].name === 'student' && flag) {
         interaction.guild.roles.create({
                 name: studentRoleName,
                 color: color,
@@ -70,14 +69,18 @@ module.exports = {
         //     reason: 'Veteran created via addrole command',
         // });
         }
-        else {
+        else if (interaction.options.data[0].name === 'default' && flag) {
             interaction.guild.roles.create({
-                name: interaction.options.data[0].options[0].value,
+                name: roleName,
                 color: color,
                 reason: 'Role created via addrole command',
             });
         }
-
-        interaction.reply('Role has been created.');
+        if (flag) {
+            interaction.reply('Role has been created.');
+        }
+        else {
+            interaction.reply('Role name is already in use');
+        }
     },
 };
