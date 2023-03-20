@@ -8,7 +8,7 @@ module.exports = {
         const roles = await interaction.guild.roles.fetch();
 
         for (const elem of roles) {
-            if (elem[1].name.toLowerCase().includes('student')) {
+            if (elem[1].name.toLowerCase().includes('student') || elem[1].name.toLowerCase().includes('veteran')) {
                 interaction.guild.roles.delete(elem[1].id);
              }
         }
