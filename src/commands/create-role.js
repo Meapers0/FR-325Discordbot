@@ -40,7 +40,7 @@ module.exports = {
         let flag = true;
 
         const studentRoleName = interaction.options.data[0].options[0].value + ' Student';
-        //const veteranRoleName = interaction.options.data[0].options[0].value + ' Veteran';
+        // const veteranRoleName = interaction.options.data[0].options[0].value + ' Veteran';
         const roleName = interaction.options.data[0].options[0].value;
         const roles = await interaction.guild.roles.fetch();
 
