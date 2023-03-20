@@ -1,39 +1,55 @@
-const { Events, Collection } = require('discord.js');
+const { Events } = require('discord.js');
 
 module.exports = {
     name: Events.GuildRoleCreate,
     once: false,
     async execute(role) {
-        console.log(role);
-        let positions = [];
-        const ids = [];
+        const roleArr = [];
+        const posArr = [];
+        const finalArr = [];
         let i = 0;
-        let map1 = new Collection();
-        if (role.name.toLowerCase().includes('student')) {
+        if (role.name.toLowerCase().includes('student') || role.name.toLowerCase().includes('veteran')) {
         const roles = role.guild.roles.cache.entries();
         for (const id of roles) {
             if (id[1].name.toLowerCase().includes('student')) {
             const roleNumArr = id[1].name.split(' ');
-            map1.set(roleNumArr[0], { id: id[1].id, position: id[1].position });
+            roleArr[i] = { number: roleNumArr[0], id: id[1].id, position: id[1].position, sub: 'Student' };
+            posArr[i] = id[1].position;
+            i++;
+            }
+            else if (id[1].name.toLowerCase().includes('veteran')) {
+            const roleNumArr = id[1].name.split(' ');
+            roleArr[i] = { number: roleNumArr[0], id: id[1].id, position: id[1].position, sub: 'Veteran' };
+            posArr[i] = id[1].position;
+            i++;
             }
         }
-        map1 = [...map1.entries()].sort(function(a, b) {
-            return a[0] - b[0];
+
+        const priority = {
+            Student: 1,
+            Veteran: 2,
+        };
+
+        roleArr.sort((a, b) => {
+            return priority[a.sub] - priority[b.sub] ||
+                b.number - a.number;
         });
-        map1.reverse();
-        for (const elem of map1) {
-            positions[i] = elem[1].position;
-            ids[i] = elem[1].id;
-            i++;
+
+
+        posArr.sort((a, b) => {
+            return b - a;
+        });
+
+        for (let j = 0; j < roleArr.length; j++) {
+            finalArr[j] = { role: roleArr[j].id, position: posArr[j] };
         }
-        positions = (positions.sort(function(a, b) {
-            return a - b;
-        })).reverse();
-        const posRoles = [];
-        for (let j = 0; j < ids.length; j++) {
-            posRoles[j] = { role: ids[j], position: positions[j] };
+
+        try {
+         await role.guild.roles.setPositions(finalArr);
         }
-        await role.guild.roles.setPositions(posRoles);
-    }
-    },
-};
+        catch (error) {
+            console.error(error);
+        }
+   }
+   },
+ };

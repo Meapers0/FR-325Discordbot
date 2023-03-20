@@ -40,7 +40,7 @@ module.exports = {
         let flag = true;
 
         const studentRoleName = interaction.options.data[0].options[0].value + ' Student';
-        //const veteranRoleName = interaction.options.data[0].options[0].value + ' Veteran';
+        const veteranRoleName = interaction.options.data[0].options[0].value + ' Veteran';
         const roleName = interaction.options.data[0].options[0].value;
         const roles = await interaction.guild.roles.fetch();
 
@@ -56,31 +56,29 @@ module.exports = {
         else {
         color = interaction.options.data[0].options[1].value;
         }
-
         if (interaction.options.data[0].name === 'student' && flag) {
-        interaction.guild.roles.create({
+        await interaction.guild.roles.create({
                 name: studentRoleName,
                 color: color,
                 reason: 'Student role created via addrole command',
-            });
-        // interaction.guild.roles.create({
-        //     name: veteranRoleName,
-        //     color: color,
-        //     reason: 'Veteran created via addrole command',
-        // });
+            },
+        );
         }
         else if (interaction.options.data[0].name === 'default' && flag) {
-            interaction.guild.roles.create({
+            await interaction.guild.roles.create({
                 name: roleName,
                 color: color,
                 reason: 'Role created via addrole command',
             });
         }
-        if (flag) {
-            interaction.reply('Role has been created.');
+        if (flag && interaction.options.data[0].name === 'student') {
+            interaction.reply({ content: 'Role has been created. Run the /create-veteran command to sync up veteran roles!', ephemeral: true });
+        }
+        else if (flag) {
+            interaction.reply({ content: 'Role has been created', ephemeral: true });
         }
         else {
-            interaction.reply('Role name is already in use');
+            interaction.reply(`Role name ${roleName} is already in use`);
         }
     },
 };
