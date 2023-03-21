@@ -16,9 +16,11 @@ This bot uses a config.json file. Place this in the root of the directory.
 Current the structure of that file is...
 
 ```
+{
     "token" : "YOUR TOKEN HERE",
     "clientId" : "YOUR CLIENTID HERE",
     "guildId" : "YOUR GUILDID HERE",
+}
 ```
 ## Structure of the bot
 This bot deploys its commands inside of ready.js, no need for running another file before launching the bot.
