@@ -39,7 +39,7 @@ module.exports = {
         let color = ' ';
         let flag = true;
 
-        const studentRoleName = 'Student ' + interaction.options.data[0].options[0].value;
+        const studentRoleName = interaction.options.data[0].options[0].value + ' Student';
         const roleName = interaction.options.data[0].options[0].value;
         const roles = await interaction.guild.roles.fetch();
 
@@ -48,33 +48,36 @@ module.exports = {
                 flag = false;
             }
         }
-
+        console.log(flag);
         if (!interaction.options.data[0].options[1]) {
         color = 'Random';
         }
         else {
         color = interaction.options.data[0].options[1].value;
         }
-
         if (interaction.options.data[0].name === 'student' && flag) {
-        interaction.guild.roles.create({
+        await interaction.guild.roles.create({
                 name: studentRoleName,
                 color: color,
-                reason: 'Role created via addrole command',
-            });
+                reason: 'Student role created via addrole command',
+            },
+        );
         }
         else if (interaction.options.data[0].name === 'default' && flag) {
-            interaction.guild.roles.create({
+            await interaction.guild.roles.create({
                 name: roleName,
                 color: color,
                 reason: 'Role created via addrole command',
             });
         }
-        if (flag) {
-            interaction.reply('Role has been created.');
+        if (flag && interaction.options.data[0].name === 'student') {
+            interaction.reply({ content: 'Role has been created. Run the /create-veteran command to sync up veteran roles!', ephemeral: true });
+        }
+        else if (flag) {
+            interaction.reply({ content: 'Role has been created', ephemeral: true });
         }
         else {
-            interaction.reply('Role name is already in use');
+            interaction.reply(`Role name ${roleName} is already in use`);
         }
     },
 };

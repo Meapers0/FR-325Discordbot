@@ -36,10 +36,6 @@ module.exports = {
                 await interaction.member.roles.add(id);
             }
 
-            // for (const id of interaction.guild.members.cache.entries()) {
-            //     console.log(id[1].roles);
-            // }
-
             await interaction.update({ content: 'Your role has been updated', ephemeral: true });
         }
     },
