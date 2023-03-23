@@ -2,7 +2,7 @@ const { SlashCommandBuilder, ChannelType, PermissionFlagsBits } = require('disco
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('initcourse')
+		.setName('init-course')
 		.setDescription('For creating a new course template')
 		.addSubcommand(subcommand =>
 			subcommand
