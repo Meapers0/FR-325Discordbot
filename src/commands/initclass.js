@@ -19,7 +19,7 @@ module.exports = {
 		.setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     async execute(interaction) {
 		// const allowedRole = interaction.options.data[0].value + ' Student';
-		const allowedRole = interaction.guild.roles.cache.find(r => r.name === 'Student ' + interaction.options.data[0].value);
+		const allowedRole = interaction.guild.roles.cache.find(r => r.name === interaction.options.data[0].value + ' Student');
 		if (allowedRole === undefined) {
 			interaction.reply('Role not yet created, please make the role for the class first.');
 			return;

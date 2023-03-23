@@ -21,7 +21,8 @@ module.exports = {
             )
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     async execute(interaction) {
-        const existingCategory = interaction.options.getString('existing-category');
+        try {
+            const existingCategory = interaction.options.getString('existing-category');
         const newCategory = interaction.options.getString('new-category');
         // const existingCategory = interaction.guild.channels.cache.find(category => category.name == interaction.options.data[1].value);
         console.log(existingCategory);
@@ -74,5 +75,9 @@ module.exports = {
             return;
         }
         interaction.reply('Channel has been created.');
+        }
+        catch (error) {
+            console.error(error);
+        }
     },
 };

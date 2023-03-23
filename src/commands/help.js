@@ -6,9 +6,15 @@ module.exports = {
 		.setDescription('A list of commands')
 		.setDefaultMemberPermissions(PermissionFlagsBits.SendMessages),
 	async execute(interaction) {
-		const embed = new EmbedBuilder()
-			.addFields(
-				interaction.client.commandData);
-		interaction.reply({ content: 'Help!', ephemeral: true, embeds: [embed] });
+		try {
+			const embed = new EmbedBuilder()
+				.addFields(
+					interaction.client.commandData);
+			interaction.reply({ content: 'Help!', ephemeral: true, embeds: [embed] });
+		}
+		catch (error) {
+			console.error(error);
+		}
+
 	},
 };

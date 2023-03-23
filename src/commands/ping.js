@@ -6,6 +6,12 @@ module.exports = {
 		.setDescription('Replies with Pong!')
 		.setDefaultMemberPermissions(PermissionFlagsBits.SendMessages),
 	async execute(interaction) {
-		await interaction.reply('Pong!').catch(err => console.log(err));
+		try {
+			await interaction.reply('Pong!').catch(err => console.log(err));
+		}
+		catch (error) {
+			console.error(error);
+		}
+
 	},
 };

@@ -6,6 +6,11 @@ module.exports = {
 		.setDescription('Provides information about the server.')
 		.setDefaultMemberPermissions(PermissionFlagsBits.SendMessages),
 	async execute(interaction) {
-		await interaction.reply(`This server is ${interaction.guild.name} and has ${interaction.guild.memberCount} members.`);
+		try {
+			await interaction.reply(`This server is ${interaction.guild.name} and has ${interaction.guild.memberCount} members.`);
+		}
+		catch (error) {
+			console.error(error);
+		}
 	},
 };
