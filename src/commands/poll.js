@@ -17,8 +17,8 @@ module.exports = {
         const pollEmbed = new EmbedBuilder()
             .setDescription('**Question:**\n' + pollQuestion)
             .addFields([
-                { name: 'yes', value: '0', inline: true },
-                { name: 'no', value: '0', inline: true },
+                { name: 'Yes', value: '0', inline: true },
+                { name: 'No', value: '0', inline: true },
             ])
             .setColor([104, 204, 222]);
         const replyObject = await interaction.reply({ embeds: [pollEmbed], fetchReply: true });
