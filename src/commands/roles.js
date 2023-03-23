@@ -20,15 +20,9 @@ module.exports = {
         },
         );
         tempRole = tempRole.sort((a, b) => {
-            const labelA = a.label;
-            const labelB = b.label;
-            if (labelA < labelB) {
-                return -1;
-            }
-            if (labelA > labelB) {
-                return 1;
-            }
-            return 0;
+            const atemp = a.label.split(' ');
+            const btemp = b.label.split(' ');
+            return atemp[0] - btemp[0];
         });
         tempRole.reverse();
 

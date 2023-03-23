@@ -43,6 +43,7 @@ module.exports = {
             name: elem.name,
             color: elem.color,
             reason: 'Role created via create-veteran command',
+            hoist: true,
         });
         fields[i] = { name: elem.name, value: 'Created' };
         i++;

@@ -60,6 +60,7 @@ module.exports = {
                 name: studentRoleName,
                 color: color,
                 reason: 'Student role created via addrole command',
+                hoist: true,
             },
         );
         }
@@ -68,6 +69,7 @@ module.exports = {
                 name: roleName,
                 color: color,
                 reason: 'Role created via addrole command',
+                hoist: true,
             });
         }
         if (flag && interaction.options.data[0].name === 'student') {
