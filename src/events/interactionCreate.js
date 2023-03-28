@@ -21,6 +21,7 @@ module.exports = {
             }
         }
         if (interaction.isStringSelectMenu()) {
+            await interaction.deferReply({ ephemeral: true });
             const component = interaction.component;
             const removed = component.options.filter((option) => {
                 return !interaction.values.includes(option.value);
@@ -31,7 +32,6 @@ module.exports = {
             for (const id of interaction.values) {
                 await interaction.member.roles.add(id);
             }
-            await interaction.deferReply({ ephemeral: true });
             await interaction.editReply({ content: 'Your role has been updated', ephemeral: true });
         }
         if (interaction.isButton()) {
