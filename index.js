@@ -14,11 +14,11 @@ const client = new Client({
 
 const commands = [];
 client.commandData = [];
+client.commandDataStu = [];
 
 client.commands = new Collection();
 
 // Finds all commands and gets names and descriptions
-let i = 0;
 const commandsPath = path.join(__dirname, '/src/commands');
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
@@ -26,9 +26,19 @@ for (const file of commandFiles) {
 	const command = require(filePath);
 	commands.push(command.data.toJSON());
 	client.commands.set(command.data.name, command);
-	client.commandData[i] = { name: `${command.data.name}`, value: `${command.data.description}` };
-	i++;
+	client.commandData.push({ name: `${command.data.name}`, value: `${command.data.description}` });
 }
+
+const commandsPath2 = path.join(__dirname, '/src/stucommands');
+const commandFiles2 = fs.readdirSync(commandsPath2).filter(file => file.endsWith('.js'));
+for (const file of commandFiles2) {
+	const filePath = path.join(commandsPath2, file);
+	const command = require(filePath);
+	commands.push(command.data.toJSON());
+	client.commands.set(command.data.name, command);
+	client.commandDataStu.push({ name: `${command.data.name}`, value: `${command.data.description}` });
+}
+console.log(client.commandDataStu);
 
 // Finds all events
 const eventsPath = path.join(__dirname, '/src/events');
