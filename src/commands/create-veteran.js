@@ -13,7 +13,6 @@ module.exports = {
             const vetNewArr = [];
             const vetCurArr = [];
             const roles = await interaction.guild.roles.fetch();
-
             // "creating" the veteran roles
             for (const elem of roles) {
                 if (elem[1].name.toLowerCase().includes('student')) {
@@ -26,8 +25,6 @@ module.exports = {
                     j++;
                 }
             }
-            console.log(vetCurArr);
-            console.log(vetNewArr);
             for (let k = 0; k < vetNewArr.length; k++) {
                 for (let h = 0; h < vetCurArr.length; h++) {
                     if (vetNewArr[k].name === vetCurArr[h]) {
@@ -36,7 +33,6 @@ module.exports = {
                     }
                 }
             }
-            console.log(vetNewArr);
             i = 0;
             vetNewArr.forEach(async elem => {
                 if (elem != ' ') {

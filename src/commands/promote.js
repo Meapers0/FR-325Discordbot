@@ -5,6 +5,7 @@ module.exports = {
         .setName('promote')
         .setDescription('Adds veteran role and removes student role for all members'),
     async execute(interaction) {
+        // confirmation
         await interaction.deferReply({ ephemeral: true });
         await interaction.editReply({
             content: `${interaction.user}, please enter 'yes' or 'no' to exectue/cancel the command (10 seconds to respond)`,
@@ -42,6 +43,7 @@ module.exports = {
             }
             if (collected.first().content === 'yes') {
                 await interaction.editReply('Command will process.');
+                // actual command
                 const members = await interaction.guild.members.fetch();
                 const roles = await interaction.guild.roles.fetch();
                 const rolesToAdd = [];

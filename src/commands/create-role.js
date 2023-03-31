@@ -37,14 +37,11 @@ module.exports = {
         .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     async execute(interaction) {
         try {
-
             let color = ' ';
             let flag = true;
-
             const studentRoleName = interaction.options.data[0].options[0].value + ' Student';
             const roleName = interaction.options.data[0].options[0].value;
             const roles = await interaction.guild.roles.fetch();
-
             for (const elem of roles) {
                 if (elem[1].name === interaction.options.data[0].options[0].value || elem[1].name === studentRoleName) {
                     flag = false;
