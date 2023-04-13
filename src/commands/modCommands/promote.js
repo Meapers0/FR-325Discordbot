@@ -1,9 +1,10 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('promote')
-        .setDescription('Adds veteran role and removes student role for all members'),
+        .setDescription('Adds veteran role and removes student role for all members')
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
     async execute(interaction) {
         // confirmation
         await interaction.deferReply({ ephemeral: true });

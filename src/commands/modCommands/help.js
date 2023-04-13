@@ -14,7 +14,7 @@ module.exports = {
 			subcommand
 					.setName('student')
 					.setDescription('Displays all commands avaiable to students'))
-		.setDefaultMemberPermissions(PermissionFlagsBits.SendMessages),
+					.setDefaultMemberPermissions(PermissionFlagsBits.SendMessages),
 	async execute(interaction) {
 		try {
 			if (interaction.options.data[0].name === 'admin') {

@@ -13,10 +13,6 @@ async function checkValid() {
         throw ReferenceError(
             console.log('token was not found!'));
     }
-    if (!config.logsId) {
-        throw ReferenceError(
-            console.log('logsId was not found!'));
-    }
 }
 
 module.exports = { checkValid };

@@ -10,7 +10,7 @@ module.exports = {
             .setDescription('provide the question')
             .setRequired(true),
         )
-        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+        .setDefaultMemberPermissions(PermissionFlagsBits.SendMessages),
     async execute(interaction) {
         try {
             const pollQuestion = interaction.options.getString('question');
