@@ -194,7 +194,7 @@ module.exports = {
 			// if default channels are not to be generated
 			if (!interaction.options.data[0].options[1].value) {
 				interaction.guild.channels.create({
-					name: `${interaction.options.data[0].options[0].value}  
+					name: `${interaction.options.data[0].options[0].value} 
 					${interaction.options.data[0].options[1].value} - 
 					${interaction.options.data[0].options[2].value} 
 					${interaction.options.data[0].options[3].value}`,
@@ -205,8 +205,8 @@ module.exports = {
 			if (interaction.options.data[0].options[1].value) {
 				const temp = await interaction.guild.channels.create({
 					name: `${interaction.options.data[0].options[0].value} 
-					${interaction.options.data[0].options[1].value}
-					${interaction.options.data[0].options[2].value} -  
+					${interaction.options.data[0].options[1].value} -  
+					${interaction.options.data[0].options[2].value} 
 					${interaction.options.data[0].options[3].value}`,
 					type: ChannelType.GuildCategory,
 				});
