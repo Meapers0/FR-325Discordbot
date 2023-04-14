@@ -1,4 +1,4 @@
-# 325Discordbot - Private repo for Team 3
+# 325Discordbot - Public repo for Team 3
 
 ## Dependencies
 
